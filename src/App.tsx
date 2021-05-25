@@ -1,4 +1,4 @@
-import ExpenseItem from "./components/ExpenseItem";
+import Expenses from "./components/Expenses";
 
 const expenses = [
   {
@@ -25,14 +25,7 @@ const expenses = [
 const App: React.FC = () => {
   return (
     <div>
-      {expenses.map((expense) => (
-        <ExpenseItem
-          key={expense.id}
-          amount={expense.amount}
-          date={expense.date}
-          title={expense.title}
-        />
-      ))}
+      <Expenses expenses={expenses} />
     </div>
   );
 };
