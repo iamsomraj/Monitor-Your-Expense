@@ -1,5 +1,6 @@
 import ExpenseItem from "./ExpenseItem";
 import "./ExpenseDate";
+import Card from "../UI/Card";
 
 interface ExpensesProp {
   expenses: {
@@ -12,7 +13,7 @@ interface ExpensesProp {
 
 const Expenses: React.FC<ExpensesProp> = (props) => {
   return (
-    <div className="expenses">
+    <Card className="expenses">
       {props.expenses.map((expense) => (
         <ExpenseItem
           key={expense.id}
@@ -21,7 +22,7 @@ const Expenses: React.FC<ExpensesProp> = (props) => {
           title={expense.title}
         />
       ))}
-    </div>
+    </Card>
   );
 };
 
