@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import "./ExpenseForm.css";
 
-const ExpenseForm: React.FC = () => {
+interface ExpenseFormProps {
+  onSaveExpenseData: (item: {
+    title: string;
+    amount: string;
+    date: Date;
+  }) => void;
+}
+
+const ExpenseForm: React.FC<ExpenseFormProps> = (props) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
@@ -24,14 +32,22 @@ const ExpenseForm: React.FC = () => {
     setDate(event.target.value);
   };
 
+  const clearFormHandler = () => {
+    setTitle("");
+    setAmount("");
+    setDate("");
+  };
+
   const submitHandler: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     const expenseItem = {
       title,
       amount,
-      date,
+      date: new Date(date),
     };
-    console.log(expenseItem);
+    // console.log(expenseItem);
+    props.onSaveExpenseData(expenseItem);
+    clearFormHandler();
   };
 
   return (

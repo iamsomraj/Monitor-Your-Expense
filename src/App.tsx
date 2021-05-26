@@ -23,10 +23,20 @@ const expenses = [
   },
 ];
 
+const onAddExpenseHandler = (expenseItem: {
+  id: string;
+  title: string;
+  amount: string;
+  date: Date;
+}) => {
+  expenses.push({ ...expenseItem, amount: parseFloat(expenseItem.amount) });
+  console.log(expenses);
+};
+
 const App: React.FC = () => {
   return (
     <div>
-      <NewExpense />
+      <NewExpense onAddExpense={onAddExpenseHandler} />
       <Expenses expenses={expenses} />
     </div>
   );
