@@ -1,8 +1,8 @@
-import ExpenseItem from "./ExpenseItem";
 import "./ExpenseDate";
 import Card from "../UI/Card";
 import ExpensesFilter from "./ExpensesFilter";
 import { useState } from "react";
+import ExpensesList from "./ExpensesList";
 
 interface ExpensesProp {
   expenses: {
@@ -27,9 +27,7 @@ const Expenses: React.FC<ExpensesProp> = (props) => {
     <div>
       <Card className="expenses">
         <ExpensesFilter year={selectedYear} onYearChange={yearChangeHandler} />
-        {filteredExpenses.map((expense) => (
-          <ExpenseItem key={expense.id} {...expense} />
-        ))}
+        <ExpensesList items={filteredExpenses} />
       </Card>
     </div>
   );
