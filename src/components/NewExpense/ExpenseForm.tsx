@@ -13,6 +13,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = (props) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState("");
   const [date, setDate] = useState("");
+  const [shouldFormBeDisplayed, setShouldFormBeDisplayed] = useState(false);
 
   const titleChangeHandler: React.ChangeEventHandler<HTMLInputElement> = (
     event
@@ -45,10 +46,22 @@ const ExpenseForm: React.FC<ExpenseFormProps> = (props) => {
       amount,
       date: new Date(date),
     };
-    // console.log(expenseItem);
     props.onSaveExpenseData(expenseItem);
     clearFormHandler();
+    hideFormHandler();
   };
+
+  const showFormHandler = () => {
+    setShouldFormBeDisplayed(true);
+  };
+
+  const hideFormHandler = () => {
+    setShouldFormBeDisplayed(false);
+  };
+
+  if (shouldFormBeDisplayed === false) {
+    return <button onClick={showFormHandler}>Add New Expense</button>;
+  }
 
   return (
     <form onSubmit={submitHandler}>
@@ -79,6 +92,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={hideFormHandler}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
