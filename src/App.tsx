@@ -1,7 +1,8 @@
+import { useState } from "react";
 import Expenses from "./components/Expense/Expenses";
 import NewExpense from "./components/NewExpense/NewExpense";
 
-const expenses = [
+const DUMMY_EXPENSES = [
   {
     id: "e1",
     title: "Toilet Paper",
@@ -23,17 +24,22 @@ const expenses = [
   },
 ];
 
-const onAddExpenseHandler = (expenseItem: {
-  id: string;
-  title: string;
-  amount: string;
-  date: Date;
-}) => {
-  expenses.push({ ...expenseItem, amount: parseFloat(expenseItem.amount) });
-  console.log(expenses);
-};
-
 const App: React.FC = () => {
+  const [expenses, setExpenses] = useState(DUMMY_EXPENSES);
+
+  const onAddExpenseHandler = (expenseItem: {
+    id: string;
+    title: string;
+    amount: string;
+    date: Date;
+  }) => {
+    setExpenses((prevExpenses) => {
+      return [
+        { ...expenseItem, amount: parseFloat(expenseItem.amount) },
+        ...prevExpenses,
+      ];
+    });
+  };
   return (
     <div>
       <NewExpense onAddExpense={onAddExpenseHandler} />

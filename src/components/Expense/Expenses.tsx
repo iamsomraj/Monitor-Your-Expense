@@ -15,23 +15,20 @@ interface ExpensesProp {
 
 const Expenses: React.FC<ExpensesProp> = (props) => {
   const [selectedYear, setSelectedYear] = useState("2021");
+  const filteredExpenses = props.expenses.filter(
+    (expense) => expense.date.getFullYear() === parseInt(selectedYear)
+  );
 
   const yearChangeHandler = (year: string) => {
     setSelectedYear(year);
-    console.log({ year });
   };
 
   return (
     <div>
       <Card className="expenses">
         <ExpensesFilter year={selectedYear} onYearChange={yearChangeHandler} />
-        {props.expenses.map((expense) => (
-          <ExpenseItem
-            key={expense.id}
-            amount={expense.amount}
-            date={expense.date}
-            title={expense.title}
-          />
+        {filteredExpenses.map((expense) => (
+          <ExpenseItem key={expense.id} {...expense} />
         ))}
       </Card>
     </div>
